@@ -6,11 +6,12 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.Button;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.Upload;
 import com.vaadin.ui.VerticalLayout;
+
 
 /**
  * This UI is the application entry point. A UI may either represent a browser window 
@@ -22,25 +23,26 @@ import com.vaadin.ui.VerticalLayout;
 @Theme("dlminer")
 public class DLMinerUI extends UI {
 
-    @Override
-    protected void init(VaadinRequest vaadinRequest) {
-        final VerticalLayout layout = new VerticalLayout();
-        
-        final TextField name = new TextField();
-        name.setCaption("Type your name here:");
+	private static final long serialVersionUID = -1654458768922351109L;
+	final Label name = new Label("<h1>DL Miner Web UI</h1>", ContentMode.HTML);
+	
+	DLMinerView dlmain = new DLMinerView();
+	OntologyUploader receiver = new OntologyUploader(dlmain,"D:\\000\\hypothesisgen");
+	Upload upload = new Upload("Upload Image Here", receiver);
+	
 
-        Button button = new Button("Click Me");
-        button.addClickListener( e -> {
-            layout.addComponent(new Label("Thanks " + name.getValue() 
-                    + ", it works!"));
-        });
-        
-        layout.addComponents(name, button);
-        layout.setMargin(true);
-        layout.setSpacing(true);
-        
-        setContent(layout);
-    }
+	@Override
+	protected void init(VaadinRequest vaadinRequest) {
+		final VerticalLayout layout = new VerticalLayout();
+		upload.addSucceededListener(receiver);
+		upload.setImmediate(false);
+
+		layout.addComponents(name, upload,dlmain);
+		layout.setMargin(true);
+		layout.setSpacing(true);
+
+		setContent(layout);
+	}
 
     @WebServlet(urlPatterns = "/*", name = "DLMinerUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = DLMinerUI.class, productionMode = false)
