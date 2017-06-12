@@ -20,7 +20,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<!-- If there are no local customisations, this can also be "fetch" or "cdn" -->
+		<!-- If there are no local customisations, this can also be "fetch" or 
+			"cdn" -->
 		<vaadin.widgetset.mode>local</vaadin.widgetset.mode>
 	</properties>
 
@@ -67,9 +68,14 @@
 			<artifactId>vaadin-themes</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>dlminer</groupId>
+			<artifactId>dlminer-main</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
 			<groupId>net.sourceforge.owlapi</groupId>
 			<artifactId>owlapi-distribution</artifactId>
-			<version>4.3.1</version>
+			<version>4.2.8</version>
 		</dependency>
 	</dependencies>
 
@@ -119,7 +125,7 @@
 				</configuration>
 			</plugin>
 
-			<!-- The Jetty plugin allows us to easily test the development build by
+			<!-- The Jetty plugin allows us to easily test the development build by 
 				running jetty:run on the command line. -->
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>

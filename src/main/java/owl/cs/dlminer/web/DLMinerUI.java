@@ -26,18 +26,13 @@ public class DLMinerUI extends UI {
 	private static final long serialVersionUID = -1654458768922351109L;
 	final Label name = new Label("<h1>DL Miner Web UI</h1>", ContentMode.HTML);
 	
-	DLMinerView dlmain = new DLMinerView();
-	OntologyUploader receiver = new OntologyUploader(dlmain,"D:\\000\\hypothesisgen");
-	Upload upload = new Upload("Upload Image Here", receiver);
+	final String tempdir = "D:\\000\\hypothesisgen";
 	
-
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
 		final VerticalLayout layout = new VerticalLayout();
-		upload.addSucceededListener(receiver);
-		upload.setImmediate(false);
 
-		layout.addComponents(name, upload,dlmain);
+		layout.addComponents(name,new DLMinerView(tempdir));
 		layout.setMargin(true);
 		layout.setSpacing(true);
 
